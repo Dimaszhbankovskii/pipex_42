@@ -1,4 +1,4 @@
-PIPEX	=	pipex
+PIPEX		=	pipex
 
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra
@@ -9,7 +9,9 @@ LIBFT		=	./libft/libft.a
 HEADER		=	./includes/pipex.h
 
 SRCS_DIR	=	srcs/
-SRCS_LIST	=	main.c
+SRCS_LIST	=	pipex.c \
+				parsing_data.c \
+				utils.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS		=	$(patsubst %.c, %.o, $(SRCS_LIST))
