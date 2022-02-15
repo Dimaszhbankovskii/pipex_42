@@ -1,5 +1,5 @@
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -9,7 +9,7 @@
 # include <stdio.h>
 # include <string.h>
 
-# define ERROR_NUMBER_ARGS "Error: pipex takes 4 arguments"
+# define ERROR_NUMBER_ARGS "Error: pipex takes 4 or more arguments"
 # define ERROR_INIT_PIPEX "Error: malloc 'pipex'"
 # define ERROR_OPEN_FILE_READ "Error: open file for reading"
 # define ERROR_OPEN_FILE_WRITE "Error: open file for writing"
@@ -26,33 +26,38 @@
 # define ERROR_WAIT_CHILD1 "Error: waitpid child1"
 # define ERROR_WAIT_CHILD2 "Error: waitpid child2"
 
-typedef struct s_pipex
+typedef struct s_pipexb
 {
-	int		end[2];
-    char    **argv;
-    char    **envp;
+	int		argc;
+	char	**argv;
+	char	**envp;
+	int		here_doc;
+	char	*stop_word;
+	int		num_cmds;
+	char	***cmds;
+	char	**paths;
+	char	**path_cmd;
+	int		num_pipe;
+	int		*end;
     int     file1;
     int     file2;
-    char    **cmd1;
-    char    **cmd2;
-	char	**paths;
-    char    *path1;
-    char    *path2;
     pid_t   child1;
     pid_t   child2;
-}               t_pipex;
+}               t_pipexb;
 
-void	parsing_data(t_pipex *pipex, char **argv, char **envp);
+void	    parsing_data(t_pipexb *pipex);
 
-t_pipex	*init_pipex(void);
+t_pipexb	*init_pipex(int argc, char **argv, char **envp);
+
 void	free_pipex(t_pipex *pipex);
 void	free_array(char **array);
-void	end_program(char *mess, t_pipex *pipex, int code);
+void	end_prog(char *mess, t_pipex *pipex, int code);
 
-size_t	ft_strlen(const char *str);
-int	    ft_strncmp(const char *str1, const char *str2, size_t n);
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *str); //+
+int		ft_strcmp(char const *str1, char const *str2); //+
+int	    ft_strncmp(const char *str1, const char *str2, size_t n); //+
+char	**ft_split(char const *s, char c); //+
+char	*ft_strjoin(char const *s1, char const *s2); //+
+char	*ft_strdup(const char *s1); //+
 
 #endif
