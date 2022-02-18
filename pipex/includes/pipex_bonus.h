@@ -1,8 +1,7 @@
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 
-# include <unistd.h>
-# include <stdlib.h>
+# include "function.h"
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <errno.h>
@@ -46,18 +45,15 @@ typedef struct s_pipexb
 }               t_pipexb;
 
 void	    parsing_data(t_pipexb *pipex);
+void		parsing_here_doc(t_pipexb *pipex);
+void		create_paths(t_pipexb *pipex);
+void		open_files(t_pipexb *pipex);
+void		open_here_doc(t_pipexb *pipex);
 
 t_pipexb	*init_pipex(int argc, char **argv, char **envp);
 
 void	free_pipex(t_pipex *pipex);
 void	free_array(char **array);
 void	end_prog(char *mess, t_pipex *pipex, int code);
-
-size_t	ft_strlen(const char *str); //+
-int		ft_strcmp(char const *str1, char const *str2); //+
-int	    ft_strncmp(const char *str1, const char *str2, size_t n); //+
-char	**ft_split(char const *s, char c); //+
-char	*ft_strjoin(char const *s1, char const *s2); //+
-char	*ft_strdup(const char *s1); //+
 
 #endif

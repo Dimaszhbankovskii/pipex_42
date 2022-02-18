@@ -12,9 +12,8 @@ t_pipexb	*init_pipex(int argc, char **argv, char **envp)
 	pipex->envp = envp;
 	pipex->stop_word = NULL;
 	pipex->cmds = NULL;
-	pipex->end = NULL;
 	pipex->paths = NULL;
-	pipex->path1 = NULL;
-	pipex->path2 = NULL;
+	pipex->path_cmd = NULL;
+	pipex->end = NULL;
 	return (pipex);
 }

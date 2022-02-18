@@ -1,4 +1,4 @@
-#include "../includes/pipex_bonus.h"
+#include "../includes/function.h"
 
 int	ft_strcmp(char const *str1, char const *str2)
 {

@@ -1,4 +1,4 @@
-#include "../includes/pipex_bonus.h"
+#include "../includes/function.h"
 
 size_t	ft_strlen(const char *str)
 {
