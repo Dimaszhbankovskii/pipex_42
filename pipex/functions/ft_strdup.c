@@ -1,4 +1,4 @@
-#include "../includes/function.h"
+#include "../includes/pipex.h"
 
 char	*ft_strdup(const char *s1)
 {

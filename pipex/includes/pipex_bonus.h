@@ -1,7 +1,7 @@
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 
-# include "function.h"
+# include "functions.h"
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <errno.h>
@@ -24,6 +24,10 @@
 # define ERROR_EXECVE "Error: execve"
 # define ERROR_WAIT_CHILD1 "Error: waitpid child1"
 # define ERROR_WAIT_CHILD2 "Error: waitpid child2"
+
+// # ifndef BUFFER_SIZE
+// #  define BUFFER_SIZE 10
+// # endif
 
 typedef struct s_pipexb
 {
@@ -52,8 +56,17 @@ void		open_here_doc(t_pipexb *pipex);
 
 t_pipexb	*init_pipex(int argc, char **argv, char **envp);
 
-void	free_pipex(t_pipex *pipex);
-void	free_array(char **array);
-void	end_prog(char *mess, t_pipex *pipex, int code);
+void		free_pipex(t_pipexb *pipex);
+void		free_array(char **array);
+void		end_prog(char *mess, t_pipexb *pipex, int code);
+
+// size_t	ft_strlen(const char *str);
+// int		ft_strcmp(char const *str1, char const *str2);
+// int		ft_strncmp(const char *str1, const char *str2, size_t n);
+// char	**ft_split(char const *s, char c);
+// char	*ft_strjoin(char const *s1, char const *s2);
+// char	*ft_strdup(const char *s1);
+// int		get_next_line(int fd, char **line);
+// int		free_buffer(int read_bytes, char *buffer);
 
 #endif
