@@ -1,4 +1,5 @@
 NAME	=	pipex
+B_NAME	=	pipex_bonus
 
 CC		=	gcc
 CFLAGS	=	-Wall -Werror -Wextra
@@ -8,22 +9,15 @@ HEADER		=	pipex.h
 B_HEADER	=	pipex_bonus.h
 FUNC_HEADER	=	functions.h
 
-SRCS_DIR	=	srcs
+SRCS_DIR		=	srcs
+B_SRCS_DIR		=	srcs_bonus
+SRCS_DIR_FUNC	=	functions
+
 SRCS_LIST	=	pipex.c \
 				parsing_data.c \
 				utils.c
 SRCS		=	$(addprefix $(SRCS_DIR)/,$(SRCS_LIST))
 
-B_SRCS_DIR	=	srcs_bonus
-B_SRCS_LIST	=	pipex_bonus.c \
-				parsing_data_bonus.c \
-				parsing_path_bonus.c \
-				here_doc_bonus.c \
-				open_file_bonus.c \
-				utils_bonus.c
-B_SRCS		=	$(addprefix $(B_SRCS_DIR)/,$(B_SRCS_LIST))
-
-SRCS_DIR_FUNC	=	functions
 SRCS_LIST_FUNC	=	ft_strlen.c \
 					ft_strdup.c \
 					ft_strjoin.c \
@@ -31,17 +25,25 @@ SRCS_LIST_FUNC	=	ft_strlen.c \
 					ft_strncmp.c
 SRCS_FUNC		=	$(addprefix $(SRCS_DIR_FUNC)/,$(SRCS_LIST_FUNC))
 
-B_SRCS_LIST_FUNC	=	ft_strlen.c \
-						ft_strdup.c \
-						ft_strjoin.c \
-						ft_split.c \
-						ft_strncmp.c \
+B_SRCS_LIST	=	pipex_bonus.c \
+				parsing_data_bonus.c \
+				parsing_paths_bonus.c \
+				here_doc_bonus.c \
+				open_files_bonus.c \
+				child_process_bonus.c \
+				free_pipex.c \
+				utils_bonus.c
+B_SRCS		=	$(addprefix $(B_SRCS_DIR)/,$(B_SRCS_LIST))
+
+B_SRCS_LIST_FUNC	=	$(SRCS_LIST_FUNC) \
 						ft_strcmp.c \
+						ft_memmove.c \
 						get_next_line.c \
 						get_next_line_utils.c
-B_SRCS_FUNC		=	$(addprefix $(SRCS_DIR_FUNC)/,$(B_SRCS_LIST_FUNC))
+B_SRCS_FUNC			=	$(addprefix $(SRCS_DIR_FUNC)/,$(B_SRCS_LIST_FUNC))
 
 OBJS_DIR	=	objs
+
 OBJS		=	$(addprefix $(OBJS_DIR)/,$(SRCS_LIST:.c=.o))
 OBJS_FUNC	=	$(addprefix $(OBJS_DIR)/,$(SRCS_LIST_FUNC:.c=.o))
 
@@ -77,6 +79,18 @@ $(OBJS_DIR)/%.o : $(SRCS_DIR_FUNC)/%.c $(INCLUDES)/$(HEADER) $(INCLUDES)/$(FUNC_
 $(OBJS_DIR) :
 	@mkdir -p objs
 	@echo "$(CYAN)Creating directory for objects file$(WHITE) --> $@ --> $(GREEN)[Done]$(NORMAL)"
+
+bonus : $(OBJS_DIR) $(B_OBJS) $(B_OBJS_FUNC)
+	@$(CC) $(CFLAGS) -o $(NAME) $(B_OBJS) $(B_OBJS_FUNC)
+	@echo "$(GREEN)Project update for bonus"
+
+$(OBJS_DIR)/%.o : $(B_SRCS_DIR)/%.c $(INCLUDES)/$(B_HEADER) Makefile
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(BLUE)Creating object file$(WHITE) --> $(notdir $@) --> $(GREEN)[Done]$(NORMAL)"
+
+$(OBJS_DIR)/%.o : $(SRCS_DIR_FUNC)/%.c $(INCLUDES)/$(B_HEADER) $(INCLUDES)/$(FUNC_HEADER) Makefile
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(BLUE)Creating object file$(WHITE) --> $(notdir $@) --> $(GREEN)[Done]$(NORMAL)"
 
 clean :
 	@rm -rf $(OBJS_DIR)

@@ -1,4 +1,4 @@
-#include "../includes/function.h"
+#include "../includes/functions.h"
 
 int	ft_strcmp(char const *str1, char const *str2)
 {

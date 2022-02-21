@@ -1,4 +1,4 @@
-#include "../includes/function.h"
+#include "../includes/functions.h"
 
 static size_t	ft_findline(char const *str)
 {

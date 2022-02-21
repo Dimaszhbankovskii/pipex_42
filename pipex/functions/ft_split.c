@@ -1,4 +1,4 @@
-#include "../includes/pipex.h"
+#include "../includes/functions.h"
 
 static size_t	ft_count_words(char const *str, char chr)
 {

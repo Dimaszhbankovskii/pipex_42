@@ -1,4 +1,4 @@
-#include "../includes/function.h"
+#include "../includes/functions.h"
 
 int	free_buffer(int read_bytes, char *buffer)
 {
