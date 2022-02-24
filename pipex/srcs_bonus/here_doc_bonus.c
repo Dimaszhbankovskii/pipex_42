@@ -47,7 +47,7 @@ void	open_here_doc(t_pipexb *pipex)
 	int		tmp;
 	char	*line;
 
-	tmp = open(NAME_HERE_DOC, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	tmp = open(NAME_HERE_DOC, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (tmp < 0)
 		end_program(ERROR_CREATE_HERE_DOC, pipex, 0);
 	while (1)

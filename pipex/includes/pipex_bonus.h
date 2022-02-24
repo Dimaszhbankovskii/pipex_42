@@ -29,7 +29,7 @@
 # define ERROR_SPLIT_CMD "Error: malloc in parsing command"
 # define ERROR_PIPE "Error: create pipe"
 # define ERROR_FORK "Error: create child-process" //+
-# define ERROR_DUP2 "Error: dup2"
+# define ERROR_DUP2 "Error: dup2" //+
 # define ERROR_EXECVE "Error: execve"
 # define ERROR_WAIT_CHILD1 "Error: waitpid child1"
 # define ERROR_WAIT_CHILD2 "Error: waitpid child2"
@@ -41,14 +41,14 @@ typedef struct s_pipexb
 	char	**envp;
 	int		here_doc;
 	char	*stop_word;
+	int		infile;
+	int		outfile;
 	int		num_cmds;
 	char	***cmds;
 	char	**paths;
 	char	**path_cmd;
-	int		num_pipe;
-	int		*end;
-	int		infile;
-	int		outfile;
+	int		num_pipes;
+	int		*pipes;
 	int		index;
 	pid_t	child;
 }				t_pipexb;

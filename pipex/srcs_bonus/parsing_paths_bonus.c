@@ -62,4 +62,5 @@ void	create_paths(t_pipexb *pipex)
 			end_program(ERROR_NO_PATH_CMD, pipex, 0);
 		i++;
 	}
+	pipex->path_cmd[i] = NULL;
 }

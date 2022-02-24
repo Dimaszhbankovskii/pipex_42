@@ -23,11 +23,15 @@ static void	create_pipes(t_pipexb *pipex)
 {
 	int	i;
 
+	pipex->num_pipes = 2 * (pipex->num_cmds - 1);
+	pipex->pipes = (int *)malloc(sizeof(int) * pipex->num_pipes);
+	if (!pipex->pipes)
+		end_program(ERROR_PIPE, pipex, 0);
 	i = 0;
-	while (i < pipex->num_pipe)
+	while (i < pipex->num_cmds - 1)
 	{
-		if (pipe(pipex->end + 2 * i) < 0)
-			exit (1);
+		if (pipe(pipex->pipes + i * 2) < 0)
+			end_program(ERROR_PIPE, pipex, errno);
 		i++;
 	}
 }
@@ -38,10 +42,8 @@ void	parsing_data(t_pipexb *pipex)
 	parsing_commands(pipex);
 	create_paths(pipex);
 	open_files(pipex);
-	pipex->num_pipe = pipex->num_cmds - 1;
-	pipex->end = (int *)malloc(sizeof(int) * pipex->num_pipe * 2);
-	if (!pipex->end)
-		exit (1); //edit
 	create_pipes(pipex);
-	pipex->index = 0;
+//
+	// end_program("end", pipex, 0);
+//
 }

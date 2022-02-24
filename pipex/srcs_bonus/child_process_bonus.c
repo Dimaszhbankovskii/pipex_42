@@ -5,17 +5,19 @@ void	close_pipes(t_pipexb *pipex)
 	int	i;
 
 	i = 0;
-	while (i < pipex->num_pipe)
+	while (i < pipex->num_pipes)
 	{
-		close(pipex->end[i]);
+		close(pipex->pipes[i]);
 		i++;
 	}
 }
 
-static void	comb_dup(int fd1, int fd2)
+static void	comb_dup(int fd1, int fd2, t_pipexb *pipex)
 {
-	dup2(fd1, STDIN_FILENO);
-	dup2(fd2, STDOUT_FILENO);
+	if (dup2(fd1, STDIN_FILENO) < 0)
+		end_program(ERROR_DUP2, pipex, errno);
+	if (dup2(fd2, STDOUT_FILENO) < 0)
+		end_program(ERROR_DUP2, pipex, errno);
 }
 
 void	child_process(t_pipexb *pipex)
@@ -23,30 +25,21 @@ void	child_process(t_pipexb *pipex)
 	pipex->child = fork();
 	if (pipex->child < 0)
 		end_program(ERROR_FORK, pipex, errno);
-	if (!pipex->child)
+	if (pipex->child == 0)
 	{
-		printf("----->  child %d  <-----\n", pipex->index);
 		if (!pipex->index)
-		{
-			printf("cmd = %s\n", pipex->path_cmd[pipex->index]);
-			comb_dup(pipex->infile, pipex->end[1]);
-		}
+			comb_dup(pipex->infile, pipex->pipes[1], pipex);
 		else if (pipex->index == pipex->num_cmds - 1)
-		{
-			printf("cmd = %s\n", pipex->path_cmd[pipex->index]);
-			comb_dup(pipex->end[2 * pipex->index - 2], pipex->outfile);
-		}
+			comb_dup(pipex->pipes[pipex->index * 2 - 2], \
+			pipex->outfile, pipex);
 		else
-		{
-			printf("cmd = %s\n", pipex->path_cmd[pipex->index]);
-			comb_dup(pipex->end[2 * pipex->index - 2], \
-			pipex->end[2 * pipex->index + 1]);
-		}
+			comb_dup(pipex->pipes[pipex->index * 2 - 2], \
+			pipex->pipes[pipex->index * 2 + 1], pipex);
 		close_pipes(pipex);
-		// printf("cmd with flags = %s\n", pipex->path_cmd[pipex->index]);
+		close(pipex->infile);
+		close(pipex->outfile);
 		execve(pipex->path_cmd[pipex->index], \
 		pipex->cmds[pipex->index], pipex->envp);
-		printf("error\n"); //edit
 		exit (1); //edit
 	}
 }
