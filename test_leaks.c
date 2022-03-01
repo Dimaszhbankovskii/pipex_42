@@ -208,11 +208,11 @@ int	main(void)
 	free (line);
 	line = NULL;
 	printf("fd = %d\n", fd);
-	if (close(fd) == 0)
-		printf("Close fd tmp\n");
-	else
-		printf("Error: close fd tmp\n");
-	printf("fd = %d\n", fd);
+	// if (close(fd) == 0)
+	// 	printf("Close fd tmp\n");
+	// else
+	// 	printf("Error: close fd tmp\n");
+	// printf("fd = %d\n", fd);
 	if (unlink("/home/dimasik99/school_21/ladarys/pipex_42/tmp") == 0)
 		printf("Unlink tmp\n");
 	else

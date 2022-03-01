@@ -19,6 +19,5 @@ void	open_files(t_pipexb *pipex)
 	if (pipex->outfile < 0)
 	{
 		close(pipex->infile);
-		end_program(ERROR_OPEN_FILE_WRITE, pipex, HERE_DOC_EXIST, 0); //+++
-	}
+		end_program(ERROR_OPEN_FILE_WRITE, pipex, HERE_DOC_EXIST, 0);
 }

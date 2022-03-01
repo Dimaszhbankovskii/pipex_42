@@ -28,7 +28,7 @@ static void	create_pipes(t_pipexb *pipex)
 	if (!pipex->pipes)
 	{
 		close_files(pipex);
-		end_program(ERROR_PIPE, pipex, HERE_DOC_EXIST, 0); // ++
+		end_program(ERROR_PIPE, pipex, HERE_DOC_EXIST, 0);
 	}
 	i = 0;
 	while (i < pipex->num_cmds - 1)
@@ -36,7 +36,7 @@ static void	create_pipes(t_pipexb *pipex)
 		if (pipe(pipex->pipes + i * 2) < 0)
 		{
 			close_files(pipex);
-			end_program(ERROR_PIPE, pipex, HERE_DOC_EXIST, errno); //++
+			end_program(ERROR_PIPE, pipex, HERE_DOC_EXIST, errno);
 		}
 		i++;
 	}

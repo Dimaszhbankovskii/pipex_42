@@ -38,7 +38,7 @@ static char	*search_paths(t_pipexb *pipex, char *cmd)
 		if (!filename)
 			end_program(ERROR_SEARCH_PATH_CMD, pipex, 0, 0);
 		free(tmp);
-		if (!access(filename, 1)) //?
+		if (!access(filename, X_OK))
 			return (filename);
 		i++;
 		free(filename);

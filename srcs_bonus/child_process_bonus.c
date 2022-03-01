@@ -20,7 +20,7 @@ void	child_process(t_pipexb *pipex)
 {
 	pipex->child = fork();
 	if (pipex->child < 0)
-		end_program(ERROR_FORK, pipex, HERE_DOC_EXIST, errno); // ++
+		end_program(ERROR_FORK, pipex, HERE_DOC_EXIST, errno);
 	if (pipex->child == 0)
 	{
 		if (!pipex->index)
