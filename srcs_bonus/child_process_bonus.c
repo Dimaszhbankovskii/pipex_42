@@ -4,14 +4,12 @@ static void	comb_dup(int fd1, int fd2, t_pipexb *pipex)
 {
 	if (dup2(fd1, STDIN_FILENO) < 0)
 	{
-		close(pipex->infile);
-		close(pipex->outfile);
+		close_files(pipex);
 		end_program(ERROR_DUP2, pipex, HERE_DOC_EXIST, errno);
 	}
 	if (dup2(fd2, STDOUT_FILENO) < 0)
 	{
-		close(pipex->infile);
-		close(pipex->outfile);
+		close_files(pipex);
 		end_program(ERROR_DUP2, pipex, HERE_DOC_EXIST, errno);
 	}
 }
@@ -35,6 +33,7 @@ void	child_process(t_pipexb *pipex)
 		close_files(pipex);
 		execve(pipex->path_cmd[pipex->index], \
 		pipex->cmds[pipex->index], pipex->envp);
-		exit (1); //edit end program
+		close_files(pipex);
+		end_program(ERROR_EXECVE, pipex, HERE_DOC_EXIST, errno);
 	}
 }

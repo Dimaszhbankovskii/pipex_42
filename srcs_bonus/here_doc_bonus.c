@@ -28,16 +28,16 @@ void	close_here_doc(t_pipexb *pipex)
 	{
 		tmp = find_str(pipex->envp, "PWD=");
 		if (!tmp)
-			end_program("---", pipex, 0, 0);
+			end_program(ERROR_CLOSE_HERE_DOC, pipex, 0, 0);
 		path = ft_strdup(tmp + ft_strlen("PWD="));
 		if (!path)
-			end_program("---", pipex, 0, 0);
+			end_program(ERROR_CLOSE_HERE_DOC, pipex, 0, 0);
 		pathname = ft_strjoin(path, "/tmp_here_doc");
 		free_one_dim_array(path);
 		if (!pathname)
-			end_program("---", pipex, 0, 0);
+			end_program(ERROR_CLOSE_HERE_DOC, pipex, 0, 0);
 		if (unlink(pathname) < 0)
-			end_program("error: unlink", pipex, 0, errno);
+			end_program(ERROR_UNLINK, pipex, 0, errno);
 		free_one_dim_array(pathname);
 	}
 }
@@ -68,8 +68,8 @@ void	open_here_doc(t_pipexb *pipex)
 		print_pattern(pipex);
 		if (get_next_line(0, &line) <= 0)
 		{
-			// close(tmp);
-			// end_program(ERROR_GET_NEXT_LINE, pipex, HERE_DOC_EXIST, 0);
+			close(tmp);
+			end_program(ERROR_GET_NEXT_LINE, pipex, HERE_DOC_EXIST, 0);
 		}		
 		if (!ft_strcmp(line, pipex->stop_word))
 			break ;

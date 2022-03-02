@@ -36,7 +36,10 @@ static char	*search_paths(t_pipexb *pipex, char *cmd)
 			end_program(ERROR_SEARCH_PATH_CMD, pipex, 0, 0);
 		filename = ft_strjoin(tmp, cmd);
 		if (!filename)
+		{
+			free (tmp);
 			end_program(ERROR_SEARCH_PATH_CMD, pipex, 0, 0);
+		}
 		free(tmp);
 		if (!access(filename, X_OK))
 			return (filename);

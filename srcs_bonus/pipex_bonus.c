@@ -33,9 +33,10 @@ int	main(int argc, char **argv, char **envp)
 		pipex->index++;
 	}
 	close_pipes(pipex);
-	waitpid(-1, NULL, 0);
+	if (waitpid(-1, NULL, 0) < 0)
+		end_program(ERROR_WAIT_CHILD, pipex, HERE_DOC_EXIST, errno);
 	close_files(pipex);
 	close_here_doc(pipex);
 	free_pipex(pipex);
-	return(0);
+	return (0);
 }
