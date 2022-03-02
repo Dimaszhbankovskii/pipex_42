@@ -30,7 +30,7 @@ B_SRCS_LIST	=	pipex_bonus.c \
 				here_doc_bonus.c \
 				open_files_bonus.c \
 				child_process_bonus.c \
-				free_pipex.c \
+				free_pipex_bonus.c \
 				utils_bonus.c
 B_SRCS		=	$(addprefix $(B_SRCS_DIR)/,$(B_SRCS_LIST))
 
@@ -101,4 +101,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all, clean, fclean, bonus
+.PHONY : all, clean, fclean, re, bonus
